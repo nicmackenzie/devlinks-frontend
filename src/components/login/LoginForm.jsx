@@ -1,7 +1,10 @@
+import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 import FormRowVertical from '../ui/FormControlVertical';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
+import { useLogin } from '../../hooks/useLogin';
+import LoadingButtonText from '../ui/LoadingText';
 
 const Main = styled.main`
   height: 100dvh;
@@ -23,6 +26,7 @@ const Form = styled.form`
     color: var(--color-brand-800);
     font-size: 1.5rem;
     text-align: center;
+    margin-bottom: 1.5rem;
   }
 
   @media (min-width: 768px) {
@@ -37,18 +41,52 @@ const Form = styled.form`
 `;
 
 function LoginForm() {
+  const { register, handleSubmit, formState, reset } = useForm();
+  const { errors } = formState;
+  const { isLogginIn, login } = useLogin();
+
+  function onSubmit(values) {
+    login(values.email, {
+      onSettled: () => reset(),
+    });
+  }
+
   return (
     <Main>
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <h1>Login to continue</h1>
-        <FormRowVertical label="Email address">
-          <Input type="email" placeholder="test@test.com" />
+        <FormRowVertical label="Email address" error={errors?.email?.message}>
+          <Input
+            type="email"
+            placeholder="test@test.com"
+            {...register('email', {
+              required: 'Email address is required',
+              pattern: {
+                value: /^\S+@\S+\.\S+$/,
+                message: 'Invalid email address entered',
+              },
+            })}
+          />
         </FormRowVertical>
-        <FormRowVertical label="Password">
-          <Input type="password" placeholder="password" />
+        <FormRowVertical label="Password" error={errors?.password?.message}>
+          <Input
+            type="password"
+            placeholder="password"
+            {...register('password', {
+              required: 'Enter your password',
+              minLength: {
+                value: 6,
+                message: 'Password needs to be over six characters',
+              },
+            })}
+          />
         </FormRowVertical>
-        <Button variant="primary" fullwidth="true">
-          Login
+        <Button variant="primary" fullwidth="true" disabled={isLogginIn}>
+          {isLogginIn ? (
+            <LoadingButtonText text="Authenticating..." />
+          ) : (
+            'Login'
+          )}
         </Button>
       </Form>
     </Main>
