@@ -51,7 +51,7 @@ export const GlobalStyles = createGlobalStyle`
     background-color: var(--color-grey-50);
     min-height: 100vh;
     line-height: 1.5;
-    font-size: 1.6rem;
+    font-size: 1rem;
    }
 
   input,
