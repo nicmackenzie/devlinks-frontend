@@ -5,10 +5,12 @@ import { login as loginApi } from '../api/apis';
 
 export function useLogin() {
   const navigate = useNavigate();
+
   const { isLoading: isLogginIn, mutate: login } = useMutation({
     mutationFn: email => loginApi(email),
-    onSuccess: () => {
-      navigate('/');
+    onSuccess: ({ data: { data: user } }) => {
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/', { replace: true });
     },
     onError: error => {
       toast.error(error.message);
