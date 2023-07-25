@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import { Toaster } from 'react-hot-toast';
+import AppLayout from './components/ui/AppLayout';
+// import ProtectedRoute from './pages/ProtectedRoute';
 
 function App() {
   const queryClient = new QueryClient();
@@ -15,8 +17,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Routes>
       </BrowserRouter>
 
