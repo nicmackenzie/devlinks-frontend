@@ -46,5 +46,5 @@ export function useAuth() {
 
   //   const logOut = useCallback() => {};
 
-  return { isLoading, isAuthenticated, logOut, login };
+  return { isLoading, isAuthenticated, logOut, login, userDetails };
 }
