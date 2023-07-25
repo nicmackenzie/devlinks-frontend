@@ -5,6 +5,7 @@ const StyledFormRow = styled.div`
   flex-direction: column;
   gap: 0.125rem;
   margin-bottom: 1rem;
+  flex: 1;
 `;
 
 const Label = styled.label`
