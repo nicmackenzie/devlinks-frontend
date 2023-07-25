@@ -20,3 +20,26 @@ export async function login(email) {
     throw new Error(error.response.data.message);
   }
 }
+
+export async function getStacks() {
+  try {
+    const { data } = await axios.get(`${API_URL}/stacks`);
+
+    // console.log(data);
+
+    return { data };
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
+export async function updateUserDetails({ details, id }) {
+  // console.log(details);
+  try {
+    const { data } = await axios.patch(`${API_URL}/users/edit/${id}`, details);
+
+    return { data };
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
