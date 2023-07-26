@@ -43,3 +43,23 @@ export async function updateUserDetails({ details, id }) {
     throw new Error(error.response.data.message);
   }
 }
+
+export async function updateUserLinks({ links, id }) {
+  try {
+    const { data } = await axios.post(
+      `${API_URL}/users/updatelinks/${id}`,
+      {
+        links,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return { data };
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
