@@ -1,50 +1,42 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(function () {
     const storedValue = localStorage.getItem('user');
     if (!storedValue) {
+      // setIsAuthenticated(false);
       setIsLoading(false);
-      setIsAuthenticated(false);
       return;
     }
     if (storedValue) {
+      // setIsAuthenticated(true);
       setIsLoading(false);
-      setIsAuthenticated(true);
       setUserDetails(JSON.parse(storedValue));
       return;
     }
   }, []);
 
-  useEffect(
-    function () {
-      if (!userDetails) setIsAuthenticated(false);
-      if (userDetails) setIsAuthenticated(true);
-    },
-    [userDetails]
-  );
-
   function logOut() {
     localStorage.removeItem('user');
     setUserDetails(null);
+    navigate('/', { replace: true });
   }
 
   function login(userDetails) {
     setUserDetails(userDetails);
   }
 
-  //   useCallback(
-  //     () => {
-  //       first
-  //     },
-  //     [second],
-  //   )
-
-  //   const logOut = useCallback() => {};
-
-  return { isLoading, isAuthenticated, logOut, login, userDetails };
+  return {
+    isLoading,
+    isAuthenticated: userDetails ? true : false,
+    logOut,
+    login,
+    userDetails,
+  };
 }

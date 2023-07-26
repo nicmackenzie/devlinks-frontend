@@ -69,6 +69,7 @@ const Wrapper = styled.div`
 function ProfileBox() {
   const [selectedTab, setSelectedTab] = useState('links');
   const { userDetails } = useAuth();
+
   return (
     <StyledProfileBox>
       <TabsContainer>
@@ -87,7 +88,7 @@ function ProfileBox() {
       </TabsContainer>
       <Wrapper>
         {selectedTab === 'links' ? (
-          <Links />
+          <Links userId={userDetails?.id} />
         ) : (
           <ProfileDetailsForm userDetails={userDetails} />
         )}
