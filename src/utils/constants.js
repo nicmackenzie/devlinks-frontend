@@ -46,3 +46,10 @@ export const STACKS = [
     label: 'Django',
   },
 ];
+
+export const PLATFORMS = [
+  { value: '', label: 'Select Platform...' },
+  { value: 'github', label: 'GitHub' },
+  { value: 'linkedin', label: 'LinkedIn' },
+  { value: 'portfolio', label: 'Personal Portfolio' },
+];
