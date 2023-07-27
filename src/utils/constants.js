@@ -53,3 +53,18 @@ export const PLATFORMS = [
   { value: 'linkedin', label: 'LinkedIn' },
   { value: 'portfolio', label: 'Personal Portfolio' },
 ];
+
+export const DEVTYPEOPTIONS = [
+  { value: '', label: 'Select Dev Type' },
+  { value: 'full stack', label: 'Full Stack' },
+  { value: 'back end', label: 'Back End' },
+  { value: 'front end', label: 'Front end' },
+];
+
+export const EXPERIENCEOPTIONS = [
+  { value: '', label: 'Select your experience' },
+  { value: '1', label: '1-3 Years' },
+  { value: '2', label: '4-7 Years' },
+  { value: '3', label: '8-15 Years' },
+  { value: '4', label: 'Over 15 Years' },
+];
