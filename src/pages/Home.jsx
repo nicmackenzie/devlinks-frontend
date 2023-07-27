@@ -1,5 +1,7 @@
+import Devs from '../components/home/Devs';
+
 function Home() {
-  return <div>Home</div>;
+  return <Devs />;
 }
 
 export default Home;

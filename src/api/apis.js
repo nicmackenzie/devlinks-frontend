@@ -35,6 +35,17 @@ export async function signup(details) {
   }
 }
 
+export async function getUsers() {
+  try {
+    const { data } = await axios.get(`${API_URL}/users`);
+
+    console.log(data);
+    return { data };
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
 export async function deleteUser(id) {
   try {
     const { data } = await axios.delete(`${API_URL}/user/delete/${id}`);
