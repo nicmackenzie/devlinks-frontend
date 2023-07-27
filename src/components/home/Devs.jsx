@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
 import ProfileCard from './ProfileCard';
-import { useGetUsers } from '../../hooks/useGetUsers';
 import Spinner from '../ui/Spinner';
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../utils/constants';
