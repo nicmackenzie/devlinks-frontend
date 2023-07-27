@@ -66,7 +66,7 @@ function Header() {
             {!isAuthenticated ? (
               <>
                 <NavItem to="/login">Login</NavItem>
-                <NavItem to="/sign-up">Sign Up</NavItem>
+                <NavItem to="/signup">Sign Up</NavItem>
               </>
             ) : (
               <>
