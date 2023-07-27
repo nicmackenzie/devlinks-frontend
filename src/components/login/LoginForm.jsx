@@ -5,6 +5,7 @@ import Input from '../ui/Input';
 import Button from '../ui/Button';
 import { useLogin } from '../../hooks/useLogin';
 import LoadingButtonText from '../ui/LoadingText';
+import { Link } from 'react-router-dom';
 
 const Main = styled.main`
   height: 100dvh;
@@ -38,6 +39,15 @@ const Form = styled.form`
       font-size: 2rem;
     }
   }
+`;
+
+const StyledLink = styled(Link)`
+  display: block;
+  font-size: 0.875rem;
+  text-align: right;
+  color: var(--color-brand-800);
+  margin-bottom: 1rem;
+  text-decoration: underline;
 `;
 
 function LoginForm() {
@@ -81,6 +91,7 @@ function LoginForm() {
             })}
           />
         </FormRowVertical>
+        <StyledLink to="/signup">Don&apos;t have an account?Sign up</StyledLink>
         <Button variant="primary" fullwidth="true" disabled={isLogginIn}>
           {isLogginIn ? (
             <LoadingButtonText text="Authenticating..." />

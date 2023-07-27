@@ -8,7 +8,12 @@ import { useRef, useState } from 'react';
 import Button from '../ui/Button';
 import { useUpdateProfile } from './useUpdateProfile';
 import LoadingButtonText from '../ui/LoadingText';
-import { STACKS } from '../../utils/constants';
+import {
+  DEVTYPEOPTIONS,
+  EXPERIENCEOPTIONS,
+  STACKS,
+} from '../../utils/constants';
+import { useDeleteUser } from '../../hooks/useDeleteUser';
 
 const Stacked = styled.div`
   display: flex;
@@ -21,21 +26,22 @@ const Stacked = styled.div`
   }
 `;
 
-const devtypeOptions = [
-  { value: 'full stack', label: 'Full Stack' },
-  { value: 'back end', label: 'Back End' },
-  { value: 'front end', label: 'Front end' },
-];
+const Actions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-const experienceOptions = [
-  { value: '1', label: '1-3 Years' },
-  { value: '2', label: '4-7 Years' },
-  { value: '3', label: '8-15 Years' },
-  { value: '4', label: 'Over 15 Years' },
-];
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+`;
 
 function DetailsForm({ userDetails }) {
   const ref = useRef();
+  const { isDeleting, deleteUser } = useDeleteUser();
   const { update, isUpdating } = useUpdateProfile();
   const [formFields, setFormFields] = useState({
     name: userDetails?.user_name,
@@ -60,8 +66,13 @@ function DetailsForm({ userDetails }) {
     };
 
     update({ details: formObj, id: userDetails.id });
+  }
 
-    // console.log(formObj);
+  function handleDelete() {
+    const prompt = confirm('Are you sure you want to delete your account?');
+    if (prompt) {
+      deleteUser(userDetails.id);
+    }
   }
 
   return (
@@ -89,14 +100,14 @@ function DetailsForm({ userDetails }) {
       <Stacked>
         <FormRowVertical label="Stack">
           <Select
-            options={devtypeOptions}
+            options={DEVTYPEOPTIONS}
             value={formFields.devtype}
             onChange={handleChange}
           />
         </FormRowVertical>
         <FormRowVertical label="Experience">
           <Select
-            options={experienceOptions}
+            options={EXPERIENCEOPTIONS}
             value={formFields.experience}
             onChange={handleChange}
           />
@@ -113,9 +124,23 @@ function DetailsForm({ userDetails }) {
           ref={ref}
         />
       </FormRowVertical>
-      <Button disabled={isUpdating}>
-        {isUpdating ? <LoadingButtonText text="Updating..." /> : 'Update'}
-      </Button>
+      <Actions>
+        <Button disabled={isUpdating || isDeleting}>
+          {isUpdating ? <LoadingButtonText text="Updating..." /> : 'Update'}
+        </Button>
+        <Button
+          type="button"
+          disabled={isUpdating || isDeleting}
+          variant="danger"
+          onClick={handleDelete}
+        >
+          {isUpdating ? (
+            <LoadingButtonText text="Updating..." />
+          ) : (
+            'Delete Account'
+          )}
+        </Button>
+      </Actions>
     </form>
   );
 }

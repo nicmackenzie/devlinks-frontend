@@ -21,6 +21,30 @@ export async function login(email) {
   }
 }
 
+export async function signup(details) {
+  try {
+    const { data } = await axios.post(`${API_URL}/signup`, details, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return { data };
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
+export async function deleteUser(id) {
+  try {
+    const { data } = await axios.delete(`${API_URL}/user/delete/${id}`);
+
+    return { data };
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+}
+
 export async function getStacks() {
   try {
     const { data } = await axios.get(`${API_URL}/stacks`);
